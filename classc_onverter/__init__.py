@@ -1,2 +1,2 @@
-from base_converter import ClassConverter, MAPPING_ROOT
+from converter import ClassConverter, MAPPING_ROOT
 

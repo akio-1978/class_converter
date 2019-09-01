@@ -1,6 +1,6 @@
 import unittest
 import json
-from classconverter import ClassConverter, MAPPING_ROOT
+from classc_onverter import ClassConverter, MAPPING_ROOT
 
 # テスト用クラスその1
 class TestClass():

@@ -1,6 +1,6 @@
 import unittest
 import json
-from classc_onverter import ClassConverter, MAPPING_ROOT
+from object_onverter import ObjectConverter, MAPPING_ROOT
 
 # テスト用クラスその1
 class TestClass():
@@ -21,7 +21,7 @@ class ClassConverterTest(unittest.TestCase):
             'value1' : 'string value 1'
         }
 
-        builder = ClassConverter(mapping={MAPPING_ROOT : TestClass})
+        builder = ObjectConverter(mapping={MAPPING_ROOT : TestClass})
         result = builder.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
 
@@ -43,7 +43,7 @@ class ClassConverterTest(unittest.TestCase):
             }
        }
 
-        builder = ClassConverter(mapping=object_mapping)
+        builder = ObjectConverter(mapping=object_mapping)
         result = builder.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
 
@@ -64,7 +64,7 @@ class ClassConverterTest(unittest.TestCase):
             }
         }
 
-        builder = ClassConverter(mapping = object_mapping)
+        builder = ObjectConverter(mapping = object_mapping)
         result = builder.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
         self.assertIsInstance(result.nested, dict)
@@ -85,7 +85,7 @@ class ClassConverterTest(unittest.TestCase):
             ]
         }
 
-        builder = ClassConverter(mapping=mapping)
+        builder = ObjectConverter(mapping=mapping)
         result = builder.convert(source_dict)
         self.assertEqual(result.value1, 'string value 1')
         self.assertEqual(len(result.nestedObjects), 3)
@@ -106,7 +106,7 @@ class ClassConverterTest(unittest.TestCase):
             {'value' : '2'},
         ]
 
-        builder = ClassConverter(mapping=object_mapping)
+        builder = ObjectConverter(mapping=object_mapping)
         result = builder.convert(source_list)
 
         self.assertIsInstance(result, list)
@@ -134,7 +134,7 @@ class ClassConverterTest(unittest.TestCase):
         string_data = '{"value1": "string value 1", "nested": {"value": "nested value 1"}}'
         dict_data = json.loads(string_data)
 
-        builder = ClassConverter(mapping=object_mapping)
+        builder = ObjectConverter(mapping=object_mapping)
         result = builder.convert(dict_data)
         dump_string = json.dumps(result, default=default_method)
         self.assertEqual(dump_string, string_data)
@@ -160,7 +160,7 @@ class ClassConverterTest(unittest.TestCase):
             }
         }
 
-        builder = ClassConverter(mapping=object_mapping)
+        builder = ObjectConverter(mapping=object_mapping)
         result = builder.convert(dict_data)
         # インスタンスの中身を変更
         result.nested.value = 'changed.'
@@ -170,7 +170,7 @@ class ClassConverterTest(unittest.TestCase):
         result.nested.nested = nest
 
         # 逆変換用インスタンスの作成
-        reverse_builder = ClassConverter.dict_converter(object_mapping)
+        reverse_builder = ObjectConverter.dict_converter(object_mapping)
         result_dict = reverse_builder.convert(result)
 
         self.assertEqual(result_dict['value1'], 'string value 1')
@@ -197,7 +197,7 @@ class ClassConverterTest(unittest.TestCase):
         }
 
         # 逆変換用インスタンスの作成
-        builder = ClassConverter.dict_converter(object_mapping)
+        builder = ObjectConverter.dict_converter(object_mapping)
         result = builder.convert(source_tuple)
 
         self.assertIsInstance(result, list)
@@ -218,7 +218,7 @@ class ClassConverterTest(unittest.TestCase):
         }
 
         # _set_valueをオーバーライドする
-        class TypeConverter(ClassConverter):
+        class TypeConverter(ObjectConverter):
             def _set_value(self, obj, key, value):
                 setattr(obj, key, int(value) if key == 'value' else value)
 
@@ -238,7 +238,7 @@ class ClassConverterTest(unittest.TestCase):
         source_object.string_value = 256
 
         # _set_valueをオーバーライドする
-        class StructureExtractor(ClassConverter):
+        class StructureExtractor(ObjectConverter):
             def _set_value(self, obj, key, value):
                 if key == 'number_value':
                     obj[key] = {'N' : value}
@@ -264,7 +264,7 @@ class ClassConverterTest(unittest.TestCase):
         }
 
         # _create_objectをオーバーライドする
-        class StructureFolder(ClassConverter):
+        class StructureFolder(ObjectConverter):
             def _create_object(self, func, key, value):
                 if key == 'number_value':
                     return int(value['N']), False

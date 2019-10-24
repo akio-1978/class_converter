@@ -1,7 +1,7 @@
 MAPPING_ROOT = '<root>'
 
 
-class ClassConverter:
+class ObjectConverter:
     # 生成時にマッピング定義を受け取る
     def __init__(self, *, mapping):
         self.mapping = mapping
@@ -74,4 +74,4 @@ class ClassConverter:
         for key in mapping.keys():
             reverse_mapping[key] = dict
         # 6.dict変換用インスタンス
-        return ClassConverter(mapping=reverse_mapping)
+        return ObjectConverter(mapping=reverse_mapping)

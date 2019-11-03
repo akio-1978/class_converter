@@ -65,6 +65,7 @@ class ObjectConverter:
 
     # dict変換用インスタンスを得るユーティリティメソッド
     # もしOrderedDictを使いたい場合はdict_objectに指定する
+    #
     @classmethod
     def dict_converter(cls, mapping, *, dict_object=dict):
         reverse_mapping = {}

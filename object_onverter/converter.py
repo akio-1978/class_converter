@@ -19,17 +19,20 @@ class ObjectConverter:
 
         # dictの場合、そのままキーと値を取り出す
         if isinstance(value, dict):
-            return self._scan_dict(func(), value)
+            return self._scan_dict(func, value)
 
         # classの場合__dict__を取り出してdictとして扱う
         if isinstance(value, object) and hasattr(value, '__dict__'):
-            return self._scan_dict(func(), value.__dict__)
+            return self._scan_dict(func, value.__dict__)
 
         # どれにも該当しないものはそのまま返す
         return value
 
     # dictの中身を変換していく
-    def _scan_dict(self, created, src):
+    def _scan_dict(self, func, src):
+
+        created = func()
+
         for key, value in src.items():
 
             # keyがマッピングに定義されている

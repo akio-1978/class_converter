@@ -1,2 +1,1 @@
-from converter import ObjectConverter, MAPPING_ROOT
-
+from object_onverter.converter import ObjectConverter, MAPPING_ROOT

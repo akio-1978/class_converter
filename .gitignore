@@ -3,3 +3,4 @@
 class_converter.iml
 .venv
 .env
+*.pyc

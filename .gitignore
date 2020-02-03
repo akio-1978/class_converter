@@ -1,5 +1,6 @@
 .git
 .idea
-class_converter.iml
+*.iml
 .venv
 .env
+/Out

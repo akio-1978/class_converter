@@ -1,6 +1,11 @@
 # object_converter
 convert class instance and built-in containers to each other.
 
+## install
+```sh
+pip install git+https://github.com/akio-1978/object_converter#egg=objectconverter
+```
+
 ## 英語で説明ムリっす。日本語で！
 dictやlistで作られた汎用コンテナと任意のクラスを相互変換します。
 
@@ -8,7 +13,7 @@ dictやlistで作られた汎用コンテナと任意のクラスを相互変換
 
 以後、日本語で行きます。 
 
-### コンテナの例
+### 汎用コンテナの例
 ```python
 src_dict = {
     'value' : 'AAA',

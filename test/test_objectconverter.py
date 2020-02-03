@@ -1,6 +1,6 @@
 import unittest
 import json
-from object_onverter import ObjectConverter
+from objectonverter import ObjectConverter
 
 # テスト用クラスその1
 class TestClass():

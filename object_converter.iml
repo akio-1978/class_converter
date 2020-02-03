@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/object_onverter" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Pipenv (object_converter)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Pipenv (object_converter) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

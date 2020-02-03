@@ -1,6 +1,6 @@
 import unittest
 import json
-from object_onverter import ObjectConverter, MAPPING_ROOT
+from object_onverter import ObjectConverter
 
 # テスト用クラスその1
 class TestClass():
@@ -21,7 +21,7 @@ class ClassConverterTest(unittest.TestCase):
             'value1' : 'string value 1'
         }
 
-        builder = ObjectConverter(mapping={MAPPING_ROOT : TestClass})
+        builder = ObjectConverter(mapping={'<MAPPING_ROOT>' : TestClass})
         result = builder.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
 
@@ -32,7 +32,7 @@ class ClassConverterTest(unittest.TestCase):
     def test_nested_object(self):
         # jsonのキーとクラスをマッピングするdict
         object_mapping = {
-            MAPPING_ROOT : TestClass,
+            '<MAPPING_ROOT>' : TestClass,
             'nested' : NestedTestClass
         }
         # 生成元のソース
@@ -53,7 +53,7 @@ class ClassConverterTest(unittest.TestCase):
     # マッピングを指定しない場合はただのdict
     def test_nested_dict(self):
         object_mapping = {
-            MAPPING_ROOT : TestClass
+            '<MAPPING_ROOT>' : TestClass
         }
 
         # 生成元のソース
@@ -73,7 +73,7 @@ class ClassConverterTest(unittest.TestCase):
     # リストの処理
     def test_sequence(self):
         mapping = {
-            MAPPING_ROOT : TestClass,
+            '<MAPPING_ROOT>' : TestClass,
             'nestedObjects' : NestedTestClass,
         }
         source_dict = {
@@ -97,7 +97,7 @@ class ClassConverterTest(unittest.TestCase):
     # ルート要素自体がリストの場合
     def test_root_sequence(self):
         object_mapping = {
-            MAPPING_ROOT : TestClass,
+            '<MAPPING_ROOT>' : TestClass,
         }
 
         source_list = [
@@ -127,7 +127,7 @@ class ClassConverterTest(unittest.TestCase):
 
         # jsonのキーとクラスをマッピングするdict
         object_mapping = {
-            MAPPING_ROOT : TestClass,
+            '<MAPPING_ROOT>' : TestClass,
             'nested' : NestedTestClass
         }
         # 生成元のソース - 比較の都合のため一行で

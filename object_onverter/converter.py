@@ -1,4 +1,3 @@
-MAPPING_ROOT = '<root>'
 
 class ObjectConverter:
     # 生成時にマッピング定義を受け取る
@@ -8,7 +7,7 @@ class ObjectConverter:
     # 変換の呼出しメソッド
     def convert(self, src):
         # 最上位の要素はマッピング'<root>'と必ずマッチする前提
-        return self._convert_value(MAPPING_ROOT, self.mapping[MAPPING_ROOT], src)
+        return self._convert_value('<MAPPING_ROOT>', self.mapping['<MAPPING_ROOT>'], src)
 
     # 値に従って処理方法を決める
     def _convert_value(self, key, func, value):

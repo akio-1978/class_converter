@@ -21,8 +21,8 @@ class ClassConverterTest(unittest.TestCase):
             'value1' : 'string value 1'
         }
 
-        builder = ObjectConverter(mapping={'<MAPPING_ROOT>' : TestClass})
-        result = builder.convert(dict_data)
+        converter = ObjectConverter(mapping={'<MAPPING_ROOT>' : TestClass})
+        result = converter.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
 
         # 生成したクラスのメソッドを呼んでみる
@@ -43,8 +43,8 @@ class ClassConverterTest(unittest.TestCase):
             }
        }
 
-        builder = ObjectConverter(mapping=object_mapping)
-        result = builder.convert(dict_data)
+        converter = ObjectConverter(mapping=object_mapping)
+        result = converter.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
 
         self.assertIsInstance(result.nested, NestedTestClass)
@@ -64,8 +64,8 @@ class ClassConverterTest(unittest.TestCase):
             }
         }
 
-        builder = ObjectConverter(mapping = object_mapping)
-        result = builder.convert(dict_data)
+        converter = ObjectConverter(mapping = object_mapping)
+        result = converter.convert(dict_data)
         self.assertEqual(result.value1, 'string value 1')
         self.assertIsInstance(result.nested, dict)
         self.assertEqual(result.nested['value'], 'nested value 1')
@@ -85,8 +85,8 @@ class ClassConverterTest(unittest.TestCase):
             ]
         }
 
-        builder = ObjectConverter(mapping=mapping)
-        result = builder.convert(source_dict)
+        converter = ObjectConverter(mapping=mapping)
+        result = converter.convert(source_dict)
         self.assertEqual(result.value1, 'string value 1')
         self.assertEqual(len(result.nestedObjects), 3)
 
@@ -106,8 +106,8 @@ class ClassConverterTest(unittest.TestCase):
             {'value' : '2'},
         ]
 
-        builder = ObjectConverter(mapping=object_mapping)
-        result = builder.convert(source_list)
+        converter = ObjectConverter(mapping=object_mapping)
+        result = converter.convert(source_list)
 
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 3)
@@ -134,16 +134,34 @@ class ClassConverterTest(unittest.TestCase):
         string_data = '{"value1": "string value 1", "nested": {"value": "nested value 1"}}'
         dict_data = json.loads(string_data)
 
-        builder = ObjectConverter(mapping=object_mapping)
-        result = builder.convert(dict_data)
+        converter = ObjectConverter(mapping=object_mapping)
+        result = converter.convert(dict_data)
         dump_string = json.dumps(result, default=default_method)
         self.assertEqual(dump_string, string_data)
 
         # 再変換しても結果が同じこと
-        result = builder.convert(json.loads(dump_string))
+        result = converter.convert(json.loads(dump_string))
         self.assertEqual(result.value1, 'string value 1')
         self.assertIsInstance(result.nested, NestedTestClass)
         self.assertEqual(result.nested.value, 'nested value 1')
+
+    # 変換 -> 逆変換
+    def test_reverse_convert(self):
+        dict_data = {
+            'value1' : 'string value 1'
+        }
+        mapping = {'<MAPPING_ROOT>' : TestClass}
+
+        converter = ObjectConverter(mapping=mapping)
+        result = converter.convert(dict_data)
+        self.assertEqual(result.value1, 'string value 1')
+        
+        # 逆変換コンバータを生成
+        reverse_converter = ObjectConverter.dict_converter(mapping=mapping)
+        reversed_result = reverse_converter.convert(result)
+        self.assertEqual(result.value1, reversed_result['value1'])
+
+
 
 if __name__ == '__main__':
     unittest.main()

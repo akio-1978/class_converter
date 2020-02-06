@@ -2,7 +2,7 @@
 convert class instance and built-in containers to each other.
 
 ヘタ英語はここまで。
-このリポジトリはqiitaに記事投稿した際に作成したものです。
+このリポジトリは[qiita](https://qiita.com/Akio-1978/items/29c480244d2961961834)に記事投稿した際に作成したものです。
 
 ## install
 自分で使うために書いておきます。

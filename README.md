@@ -1,17 +1,20 @@
 # object_converter
 convert class instance and built-in containers to each other.
 
+ヘタ英語はここまで。
+このリポジトリはqiitaに記事投稿した際に作成したものです。
+
 ## install
+自分で使うために書いておきます。
 ```sh
 pip install git+https://github.com/akio-1978/object_converter#egg=objectconverter
 ```
 
-## 英語で説明ムリっす。日本語で！
+## 説明
+記事の方でもう少し詳しく説明していますが…
 dictやlistで作られた汎用コンテナと任意のクラスを相互変換します。
 
 個人的には便利たけど、使う人はいないよね、きっと世の中にはもっと良いものがあるはずだから。
-
-以後、日本語で行きます。 
 
 ### 汎用コンテナの例
 ```python
@@ -56,6 +59,3 @@ converted_class = converter.convert(src_dict)
 converted_class.test_method()
 ```
 こんな感じです。
-
-### 使う人はいないと思いますが
-自分で使いたいので
